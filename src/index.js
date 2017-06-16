@@ -1,43 +1,30 @@
 (function() {
-  var carousel, next, prev, seats;
+  var carousel = $('.carousel');
+  var seats = $('.carousel-seat'); // list of slider's items 
 
-  carousel = $('.carousel');
-
-  seats = $('.carousel-seat');
-
-  next = function(el) {
-    if (el.next().length > 0) {
-      return el.next();
-    } else {
-      return seats.first();
-    }
-  };
-
-  prev = function(el) {
-    if (el.prev().length > 0) {
-      return el.prev();
-    } else {
-      return seats.last();
-    }
-  };
+  [].forEach.call(seats, function(element, index) { // default order
+     element.style.order = index;
+  });  
 
   $('.toggle').on('click', function(e) {
-    var el, i, j, new_seat, ref;
-    el = $('.is-ref').removeClass('is-ref');
-    
+    var droppWhen = 0,                          // default moving back 
+    valueForDropp = seats.length-1,      //
+    delta = -1;                                         //
+
     if ($(e.currentTarget).data('toggle') === 'next') {
-      new_seat = next(el);
-      carousel.removeClass('is-reversing');
-    } else {
-      new_seat = prev(el);
-      carousel.addClass('is-reversing');
+          droppWhen = seats.length-1;
+          valueForDropp = 0;
+          delta = 1;
     }
-    /*new_seat.addClass('is-ref').css('order', 1);
-    for (i = j = 2, ref = seats.length; 2 <= ref ? j <= ref : j >= ref; i = 2 <= ref ? ++j : --j) {
-      new_seat = next(new_seat).css('order', i);
-    }*/
 
-
+    [].forEach.call(seats, function(element, index) { // shuffle cards
+      var tempOrder = parseInt(element.style.order, 10)
+      if (tempOrder===droppWhen) {
+        element.style.order = valueForDropp;
+      } else {
+        element.style.order = tempOrder + delta;
+      }
+    });        
 
     carousel.removeClass('is-set');
     return setTimeout((function() {
