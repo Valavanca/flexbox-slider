@@ -1,28 +1,44 @@
+
+.hide {
+  display: none;
+  order: inherit;
+}
+.opacity {
+    opacity:0;
+    transition: opacity 12s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.push_to{ 
+  opacity:0;
+  transform: translateX(30%);
+  transition: transform 3s cubic-bezier(0.23, 1, 0.32, 1),
+                  opacity 6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.pull_from { 
+  /*opacity:0;*/
+  transform: translateX(-80%);
+  transition: transform 3s cubic-bezier(0.23, 1, 0.32, 1),
+                  opacity 6s cubic-bezier(0.23, 1, 0.32, 1);
+  /*animation: moveFromLeft 5s 1;*/
+}
+@keyframes moveFromLeft {
+    from {left: -10%;}
+    to {left: 0;}
+}
+/*_______________________*/
+
 .wrap {
   overflow: hidden;
 }
 
 #carousel {
   display: flex;
-  left: -33.33333%;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-
-#carousel.right {
-  transform: translateX(33.33333%);
-  transition: transform 2s cubic-bezier(0.23, 1, 0.32, 1);
-}
-#carousel.left {
-  transform: translateX(-33.33333%);
-  transition: transform 2s cubic-bezier(0.23, 1, 0.32, 1);
+  justify-content: center;
 }
 .carousel-seat {
   background: #dfd;
-  flex: 1 0 100%;
-  flex-basis: 33.33333%;
+  flex-basis: 20%;
+  /*opacity: 1;*/
+  /*transition: opacity 3s cubic-bezier(0.23, 1, 0.32, 1)*/
 }
 .carousel-seat:nth-child(even) {
   background: #d5d5d5;
@@ -51,15 +67,4 @@ h2 {
 }
 .controls button:hover, .controls button:focus {
   background: magenta;
-}
-
-/* MEDIA queries*/
-@media (max-width: 30em) {
-  #carousel {
-    /*left: -50%;*/
-    transform: translateX(50%);
-  }
-   .carousel-seat {
-    flex-basis: 50%;
-  }
 }
